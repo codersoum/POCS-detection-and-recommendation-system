@@ -1,0 +1,8 @@
+from pdf_extractor import pdfReader
+import os
+import pathlib as pl
+file_path
+def parse_file(file_path):
+    reader=pdfReader(file_path)
+    row=reader.pages[0].extract_text()
+    print(row)
