@@ -25,7 +25,7 @@ def save_user_details(name,email,password):
 def main():
     try:
         st.title("Create an Account")
-        st.subheader("Register as a new user to the applcation. Your details will be stored  in a csv file locally.")
+        st.subheader("Register as a new user to the applcation")
         with st.form("registration_form"):
             name=st.text_input("Enter your full name")
             email=st.text_input("Enter your email address")
