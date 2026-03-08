@@ -56,8 +56,8 @@ def print_report():
         st.sidebar.download_button(label="Download PCOS Report",data=open("PCOS_Report.pdf","rb"),file_name="POCS_Report.pdf",mime="text/pdf")
 
 def main():
-    if st.session_state.get("authenticated")==False and st.session_state.get("name")=="":
-         st.warning("Please login back to access the PCOS recommendation system")
+    if not st.session_state.get("authenticated") or not st.session_state.get("name"):
+         st.warning("Please login back to access the PCOS detection system")
          st.stop()
     else:
         st.title(f"Hi {st.session_state["name"]}!:smiley:")
@@ -86,17 +86,16 @@ def main():
             prediction=model.predict(X_input)[0]
             if prediction==1:
                 st.error("The model predicts that you may have PCOS. It is advisable to consult a healthcare professional for a comprehensive evaluation and diagnosis.")
-                st.subheader("Lifestyle Recommendations for Managing PCOS:")
                 st.session_state.predict_report=True
             else:
                 st.success("The model predicts that you are unlikely to have PCOS. However, if you experience any symptoms or have concerns, please consult a healthcare professional for further evaluation.")
                 st.session_state.predict_report=False
             st.session_state.prediction_done=True
-        if st.session_state.predict_report:
-            if st.button("Proceed to PCOS Recommendation System"):
-                st.switch_page("pages/Chatbot.py")
         if st.session_state.prediction_done:
             if st.button("Generate Report", disabled=not st.session_state.prediction_done):
                 print_report()
+        if st.session_state.predict_report:
+            if st.button("Proceed to PCOS Recommendation System"):
+                st.switch_page("pages/Chatbot.py")
 if __name__=="__main__":
     main()
