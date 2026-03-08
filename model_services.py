@@ -24,6 +24,9 @@ try:
     y_pred = model.predict(X_test[feature_importances_index])
     accuracy = accuracy_score(y_test, y_pred)
     print(f"Model Accuracy: {accuracy * 100:.2f}%")
+    print("Confidence Scores for each feature:")
+    for feature, importance in zip(feature_importances_index, model.feature_importances_[model.feature_importances_ != 0]):
+        print(f"  {feature}: {importance:.4f}")
     with open('model.pkl', 'wb') as file:
         pk.dump(model, file)
     with open('features.pkl', 'wb') as file:
